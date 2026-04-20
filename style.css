@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Rock 3D', sans-serif;
+    font-size: 4rem;
+    margin: 32px;
+}
+
+h2 {
+    font-family: 'Atma', sans-serif;
+    font-size: 3rem;
+    margin: 16px;
+}
+
+p {
+    font-family: "Atma", sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.game-button {
+    width: 100px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+#now-playing {
+  margin-top: auto;
+}

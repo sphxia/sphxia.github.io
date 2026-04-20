@@ -1,1 +1,41 @@
-Hay
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Home</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Rock+3D&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>Lamama .com</h1>
+        <h2>Use my w ebsite</h2>
+        <div class="row">
+            <a href="games.html"><img class="game-button" src="pngtree-play-button-for-game-vector-png-image_11130437.png" /></a>
+            <p>Its my games</p>
+        </div>
+
+        <p id="now-playing">...</p>
+
+        <script>
+            const username = "kinglamama";
+            const apiKey = "72b7ea16e4fe3bb8dbc4aa4cb36a3375";
+            const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const track = data.recenttracks.track[0];
+                    const isLive = track["@attr"]?.nowplaying === "true";
+                    const name = track.name;
+                    const artist = track.artist["#text"];
+
+                    const label = isLive ? "SONG IM LISTENING TO" : "last played";
+                    document.getElementById("now-playing").textContent = `${label}: ${name} — ${artist}`;
+                });
+        </script>
+        <p>Isnt that cool?</p>
+    </body>
+
+</html>
