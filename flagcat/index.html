@@ -18,6 +18,12 @@
             <img id="flag3" src="" /> 
         </div>
 
+        <input type="text" id="guess-input" list="flag-autocompletes" placeholder="Guess..." />
+        <datalist id="flag-autocompletes"></datalist>
+        <button id="guess-button">Guess</button>
+
+        <div id="guess-history"></div>
+
         <!-- connecting to and running the scripts after since script updates the element -->
         <script src="flags.js"></script>
         <script src="game.js"></script> 

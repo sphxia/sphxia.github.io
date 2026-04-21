@@ -9,3 +9,10 @@ const flags = [
 function getFlag(code) {
     return `https://flagcdn.com/w320/${code}.png`;
 }
+
+const datalist = document.getElementById("flag-autocompletes");
+flags.forEach(flag => {
+    const option = document.createElement("option");
+    option.value = flag.name;
+    datalist.appendChild(option);
+});
