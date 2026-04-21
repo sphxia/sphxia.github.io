@@ -1,11 +1,35 @@
 body {
+    background: wheat;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: "Sour Gummy", sans-serif;
+    gap: 16px;
+}
+
+h1 {
+    font-family: "Chewy", cursive;
+    font-size: 3rem;
+    margin: 16px;
+    color: #2B1B14;
+}
+
+h2 {
+    margin: 0;
+    color: #2B1B14;
 }
 
 .flag-box {
     position: relative;
+    border: 2px solid #2B1B14;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.input-box {
+    display: flex;
+    gap: 16px;
 }
 
 #flagcat {
@@ -29,25 +53,102 @@ body {
     pointer-events: none;
 }
 
-#guess-log {
+#guess-history {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 16px;
     width: 300px;
 }
 
 .guess-correct {
-    padding: 8px 12px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: chartreuse;
+    padding: 0 12px;
+    border: 2px solid olivedrab;
     font-size: 1rem;
+    height: 100%;
 }
 
 .guess-wrong {
-    padding: 8px 12px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: gray;
+    padding: 0 12px;
+    border: 2px solid darkslategrey;
+    background-color: slategrey;
     font-size: 1rem;
+    height: 100%;
+}
+
+button {
+    border: none;
+    outline: none;
+
+    background:olive;
+    color: white;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+}
+button:hover {
+    background: goldenrod;
+    transform: scale(1.05);
+}
+button:active {
+    transform: scale(0.95);
+}
+
+input {
+    border: none;
+    outline: none;
+
+    background: white;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s;
+}
+input:focus {
+    box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+}
+
+@keyframes slam {
+    from { transform: scale(1.25); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes rainbow-slide {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes rainbow-fade {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.guess-correct {
+    background-color: chartreuse;
+    position: relative;
+    overflow: hidden;
+}
+
+.guess-correct span {
+    position: relative;
+    z-index: 1;
+}
+
+.guess-correct::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(135deg, red, orange, yellow, green, cyan, blue, violet, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 600% 600%;
+    animation: rainbow-slide 1.2s linear forwards, rainbow-fade 0.5s ease-out 0.6s forwards;
+    pointer-events: none;
+}
+
+.guess-correct, .guess-wrong {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slam 0.2s ease-out;
 }

@@ -2,7 +2,12 @@
 <html lang="en">
 
     <head>
-        <title>Home</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <title>Flagcat</title>
         <link rel="stylesheet" href="style.css">
     </head>
 
@@ -12,19 +17,21 @@
         
         <div class="flag-box">
             <img id="flagcat" src="../flagcat.gif" />
-            <!-- making empty image -->
+            <!-- making empty images -->
             <img id="flag1" src="" /> 
             <img id="flag2" src="" /> 
             <img id="flag3" src="" /> 
         </div>
 
-        <input type="text" id="guess-input" list="flag-autocompletes" placeholder="Guess..." />
-        <datalist id="flag-autocompletes"></datalist>
-        <button id="guess-button">Guess</button>
+        <div class="input-box">
+            <input type="text" id="guess-input" list="flag-autocompletes" placeholder="Guess..." />
+            <datalist id="flag-autocompletes"></datalist>
+            <button id="guess-button">Guess</button>
+        </div>
 
         <div id="guess-history"></div>
 
-        <!-- connecting to and running the scripts after since script updates the element -->
+        <!-- connecting to and running the scripts after since script updates the elements -->
         <script src="flags.js"></script>
         <script src="game.js"></script> 
     </body>

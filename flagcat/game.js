@@ -24,8 +24,12 @@ const [flag1, flag2, flag3] = getDailyFlags();
 document.getElementById("flag1").src = `https://flagcdn.com/w320/${flag1.code}.png`;
 document.getElementById("flag2").src = `https://flagcdn.com/w320/${flag2.code}.png`;
 document.getElementById("flag3").src = `https://flagcdn.com/w320/${flag3.code}.png`;    
+    
+const correctFlagNames = [flag1.name.toLowerCase(), flag2.name.toLowerCase(), flag3.name.toLowerCase()];
 
 const guessHistory = [];
+
+let correctGuesses = 0;
 
 function submitGuess() {
     const guess = document.getElementById("guess-input").value.toLowerCase();
@@ -41,21 +45,66 @@ function submitGuess() {
         return;
     }
 
-    
+
+    // HANDLING GUESS
 
     guessHistory.push(guess);
 
     const entry = document.createElement("div");
 
-    const correctFlagNames = [flag1.name.toLowerCase(), flag2.name.toLowerCase(), flag3.name.toLowerCase()];
     const isCorrect = correctFlagNames.includes(guess);
 
-    entry.classList.add(isCorrect ? "guess-correct" : "guess-wrong");
-    entry.textContent = guess;
+    if (correctFlagNames.includes(guess)) {
+        entry.classList.add("guess-correct");
+        correctGuesses++;
+    } else {
+        entry.classList.add("guess-wrong");
+    }
     
-    document.getElementById("guess-history").prepend(entry);
+    const span = document.createElement("span");
+    span.textContent = guess.charAt(0).toUpperCase() + guess.slice(1);;
+    span.style.color = "#2B1B14"
+    entry.appendChild(span);
 
+    const img = document.createElement("img");
+    img.src = getFlag(flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).code);
+    
+    img.style.height = "100%";
+    img.style.width = "auto";
+
+    img.style.objectFit = "cover";
+    img.style.position = "relative";
+    img.style.zIndex = "1";
+    img.style.border = "2px solid #2B1B14";
+
+    const guessBox = document.createElement("div");
+
+    guessBox.style.height = "32px";
+    guessBox.style.alignItems = "stretch";
+
+    entry.style.flex = "1";
+
+    guessBox.style.display = "flex";
+    guessBox.style.gap = "8px";
+
+    guessBox.appendChild(entry);
+    guessBox.appendChild(img);
+
+    document.getElementById("guess-history").prepend(guessBox);
+    
     document.getElementById("guess-input").value = "";
+
+    if (correctGuesses === 3) {
+        endGame();
+    }
+}
+
+function endGame() {
+    if (correctGuesses === 3) {
+        alert("Yoy did");
+    } else {
+        alert("Yoy didnt");
+    }
 }
 
 document.getElementById("guess-input").addEventListener("keydown", (e) => {
@@ -64,6 +113,15 @@ document.getElementById("guess-input").addEventListener("keydown", (e) => {
     }
 });
 
+document.getElementById("guess-input").addEventListener("keydown", function(e) {
+    if (e.key === "Tab" && document.getElementById("guess-input").value != "") {
+        e.preventDefault();
+        const list = document.getElementById("flag-autocompletes");
+        const value = this.value.toLowerCase();
+        const match = Array.from(list.options).find(option => option.value.toLowerCase().startsWith(value));
+        if (match) this.value = match.value;
+    }
+});
 
 document.getElementById("guess-button").addEventListener("click", () => {
     submitGuess();
