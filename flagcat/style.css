@@ -55,6 +55,18 @@ p {
     display: block;
 }
 
+#cat1, #cat2, #cat3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
 #flag1, #flag2, #flag3 {
     position: absolute;
     top: 0;
@@ -66,6 +78,20 @@ p {
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+}
+
+@keyframes revealLeft { to { transform: translateX(-125%); } }
+@keyframes revealRight { to { transform: translateX(125%); } }
+
+.flag-box.game-end #flag1, .flag-box.game-end #cat1 { animation: revealLeft 1s cubic-bezier(0.1, 1, 0.5, 1) forwards; }
+.flag-box.game-end #flag3, .flag-box.game-end #cat3 { animation: revealRight 1s cubic-bezier(0.1, 1, 0.5, 1) forwards; }
+.flag-box.game-end #cat1, .flag-box.game-end #cat2, .flag-box.game-end #cat3 {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    border: 2px solid #2B1B14;
+}
+.flag-box.game-end {
+    border: 0px;
 }
 
 #guess-history {
@@ -196,4 +222,19 @@ input:focus {
     gap: 16px;
     max-width:400px;
     box-shadow: 0 2px 32px rgba(0,0,0,0.5)
+}
+
+#status {
+    background: white;
+    border: 2px solid #2B1B14;
+    border-radius: 12px;
+    padding: 12px 20px;
+}
+
+#speech-tail {
+    position: absolute;
+    top: -22px;
+    left: 32px;
+    width: 32px;
+    height: 32px;
 }

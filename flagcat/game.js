@@ -36,13 +36,13 @@ function submitGuess() {
 
     const flagNames = flags.map(flag => flag.name.toLowerCase());
     if (!flagNames.includes(guess)) {
-        alert("Wtf not flag");
+        document.getElementById("status").textContent = "We don't have that one. Guess again!"
         return;
-    }
-
-    if (guessHistory.includes(guess)) {
-        alert("Wtf same guess");
+    } else if (guessHistory.includes(guess)) {
+        document.getElementById("status").textContent = "You guessed that one already... try again!"
         return;
+    } else {
+        document.getElementById("status").textContent = "Good guess. Do one another time"
     }
 
 
@@ -101,13 +101,23 @@ function submitGuess() {
 function endGame() {
     if (correctGuesses === 3) {
         // HANDLE WIN //////////////////////////////////////////////////////////
-        alert("Yoy did");
-        // TODO: MAKE ALL DAT IN CSS HAVE IT BE A CLASS ////////////////////////
-        document.getElementById("guess-input").disabled = true;
-        document.getElementById("guess-input").style.background = "darkgray";
+        document.getElementById("status").textContent = "Holy moly you did it. You guessed my three flags!"
     } else {
-        alert("Yoy didnt");
+        document.getElementById("status").textContent = "Hey you lost but that's okay"
     }
+
+    // TODO: MAKE ALL DAT IN CSS HAVE IT BE A CLASS ////////////////////////
+    document.getElementById("guess-input").disabled = true;
+    document.getElementById("guess-input").style.background = "darkgray"
+    document.getElementById("guess-input").placeholder = "Don't guess...";
+
+    document.getElementById("guess-button").disabled = true;
+    document.getElementById("guess-button").style.pointerEvents = "none";
+    document.getElementById("guess-button").style.color = "darkolivegreen";
+
+    // ANIMATION /////////////////////////
+    document.getElementById("flag-box").classList.add("game-end");
+
 }
 
 document.getElementById("guess-input").addEventListener("keydown", (e) => {
@@ -117,14 +127,14 @@ document.getElementById("guess-input").addEventListener("keydown", (e) => {
 });
 
 function openHTP() {
-    document.getElementById('how-to-play-modal').classList.remove('close');
+    document.getElementById("how-to-play-modal").classList.remove("close");
 }
 
 function closeHTP() {
-    document.getElementById('how-to-play-modal').classList.add('close');
+    document.getElementById("how-to-play-modal").classList.add("close");
 }
 
-document.getElementById('how-to-play-modal').addEventListener('click', function(e) {
+document.getElementById("how-to-play-modal").addEventListener("click", function(e) {
     // this works bcz the text and box and stuff arent actually "this" theyre stuff stacked on top i think
     if (e.target === this) closeHTP();
 });
