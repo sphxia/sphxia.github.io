@@ -16,9 +16,9 @@
         <div class="top-buttons">
             <button onclick="openHTP()">How to Play</button>
             <a href="flags.html"><button >Flags</button></a>
-            <button>About</button>
+            <button onclick="openAbout()">About</button>
         </div>
-        <h1>Flagcat</h1>
+        <h1 id="title"><span>F</span><span>l</span><span>a</span><span>g</span><span>c</span><span>a</span><span>t</span></h1>
 
         <div id="how-to-play-modal" class="modal close">
             <div class="info-box">
@@ -27,6 +27,32 @@
                 <p>Your goal is to guess all three!</p>
                 <p>NOTE THAT ALTHOUGH ISRAEL IS INCLUDED IN THE POOL WE AT FLAGCAT HQ DO NOT RECOGNIZE IT AS A COUNTRY.</p>
                 <button style="align-self:flex-end;" onclick="closeHTP()">Close</button>
+            </div>
+        </div>
+
+        <div id="about-modal" class="modal close">
+            <div class="info-box">
+                <h2>A short flagcat history</h2>
+                <p>Flagcat is a daily game that was originally conceived by my friend anderson. The challenge was created using the /flag command from esmbot on top of The flagcat.</p>
+                <p>Friends of theirs were tempted to take the challenge through anderson's discord status, which read: "Ask me for today's flag cat!"</p>
+                <p>We decided to work together to bring flagcat to a grander stage, as word of mouth can only travel so far.</p>
+
+                <h2>Some notes on mentality</h2>
+                <p>At the end of the day, flagcat is about having fun. We understand that it's only human to lose ourselves in the heat of passion, but it's still important to do what you can to keep a healthy mindset!</p>
+                <p>「巧言亂德，小不忍則亂大謀。」-老子</p>
+                <p>Here are some resources that the team at flagcat hq have found useful in managing our emotions when flagging out:</p>
+
+                <div>
+                    <img width="96px" src="../flagcat.gif" onmouseover="this.src='../flagcatfast.gif'" onmouseout="this.src='../flagcat.gif'" />
+                    <img width="96px" src="../flagcat.gif" onmouseover="this.src='../flagcatsuperfast.gif'" onmouseout="this.src='../flagcat.gif'" />
+                    <img width="96px" src="../flagcat.gif" onmouseover="this.src='../flagcatfast.gif'" onmouseout="this.src='../flagcat.gif'" />
+                    <img width="96px" src="../flagcat.gif" onmouseover="this.src='../flagcatfast.gif'" onmouseout="this.src='../flagcat.gif'" />
+
+                </div>
+
+                    <iframe style="width: 100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/jubaooR1bBI?si=ksA6MkabKE6Bjxlb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                <button style="align-self:flex-end;" onclick="closeAbout()">Close</button>
             </div>
         </div>
         
@@ -56,6 +82,7 @@
             <input type="text" id="guess-input" list="flag-autocompletes" placeholder="Guess..." />
             <datalist id="flag-autocompletes"></datalist>
             <button id="guess-button">Guess</button>
+            <button class="give-up-button" id="give-up-button">Give up</button>
         </div>
 
         <div id="guess-history"></div>

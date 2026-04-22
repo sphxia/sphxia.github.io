@@ -10,6 +10,7 @@ const weightedPool = [];
 for (let i = 0; i < flags.length; i++) {
     const flag = flags[i];
     const weight = weights[flag.difficulty];
+
     for (let j = 0; j < weight; j++) {
         weightedPool.push(flag);
     }
@@ -51,16 +52,38 @@ let correctGuesses = 0;
 function submitGuess() {
     const guess = document.getElementById("guess-input").value.toLowerCase();
 
+    const status = document.getElementById("status")
+    const flagBox = document.getElementById("flag-box");
+
     const flagNames = flags.map(flag => flag.name.toLowerCase());
     if (!flagNames.includes(guess)) {
-        document.getElementById("status").textContent = "We don't have that one. Guess again!"
+        status.textContent = "We don't have that one. Guess again!"
+        status.classList.remove("flash-incorrect", "flash-correct");
+        setTimeout(() => status.classList.add("flash-incorrect"), 1);
+
+        flagBox.classList.remove("shake", "bounce");
+        setTimeout(() => flagBox.classList.add("shake"), 1);
+
         return;
     } else if (guessHistory.includes(guess)) {
-        document.getElementById("status").textContent = "You guessed that one already... try again!"
+        status.textContent = "You guessed that one already... try again!"
+        status.classList.remove("flash-incorrect", "flash-correct");
+        setTimeout(() => status.classList.add("flash-incorrect"), 1);
+
+        flagBox.classList.remove("shake", "bounce");
+        setTimeout(() => flagBox.classList.add("shake"), 1);
+        
         return;
     } else {
-        document.getElementById("status").textContent = "Good guess. Do one another time"
+        status.textContent = "Good guess. Do one another time"
     }
+
+    status.classList.remove("flash-incorrect", "flash-correct");
+    setTimeout(() => status.classList.add("flash-correct"), 1);
+
+    flagBox.classList.remove("shake", "bounce");
+    setTimeout(() => flagBox.classList.add("bounce"), 1);
+
 
 
     // HANDLING GUESS
@@ -132,6 +155,10 @@ function endGame() {
     document.getElementById("guess-button").style.pointerEvents = "none";
     document.getElementById("guess-button").style.color = "darkolivegreen";
 
+    document.getElementById("give-up-button").disabled = true;
+    document.getElementById("give-up-button").style.pointerEvents = "none";
+    document.getElementById("give-up-button").style.color = "darkred";
+
     // ANIMATION /////////////////////////
     document.getElementById("flag-box").classList.add("game-end");
 
@@ -151,9 +178,22 @@ function closeHTP() {
     document.getElementById("how-to-play-modal").classList.add("close");
 }
 
+function openAbout() {
+    document.getElementById("about-modal").classList.remove("close");
+}
+
+function closeAbout() {
+    document.getElementById("about-modal").classList.add("close");
+}
+
 document.getElementById("how-to-play-modal").addEventListener("click", function(e) {
     // this works bcz the text and box and stuff arent actually "this" theyre stuff stacked on top i think
     if (e.target === this) closeHTP();
+});
+
+document.getElementById("about-modal").addEventListener("click", function(e) {
+    // this works bcz the text and box and stuff arent actually "this" theyre stuff stacked on top i think
+    if (e.target === this) closeAbout();
 });
 
 document.getElementById("guess-input").addEventListener("keydown", function(e) {
@@ -168,4 +208,8 @@ document.getElementById("guess-input").addEventListener("keydown", function(e) {
 
 document.getElementById("guess-button").addEventListener("click", () => {
     submitGuess();
+});
+
+document.getElementById("give-up-button").addEventListener("click", () => {
+    endGame();
 });

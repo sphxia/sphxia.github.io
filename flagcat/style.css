@@ -9,7 +9,28 @@ body {
     gap: 32px;
 }
 
+#title span {
+    display: inline-block;
+    animation: wave 15s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateY(0); }
+    2% { transform: translateY(-6px); }
+    4% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+
+#title span:nth-child(1) { animation-delay: 0s; }
+#title span:nth-child(2) { animation-delay: 0.1s; }
+#title span:nth-child(3) { animation-delay: 0.2s; }
+#title span:nth-child(4) { animation-delay: 0.3s; }
+#title span:nth-child(5) { animation-delay: 0.4s; }
+#title span:nth-child(6) { animation-delay: 0.5s; }
+#title span:nth-child(7) { animation-delay: 0.6s; }
+
 .top-buttons {
+    z-index: 5;
     display: flex;
     position: fixed;
     top: 16px;
@@ -94,11 +115,42 @@ p {
     border: 0px;
 }
 
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-5px, 1px); }
+    20% { transform: translate(4px, -3px); }
+    30% { transform: translate(-7px, 1px); }
+    40% { transform: translate(3px, -2px); }
+    50% { transform: translate(-4px, 4px); }
+    60% { transform: translate(5px, -1px); }
+    70% { transform: translate(-2px, 4px); }
+    80% { transform: translate(5px, -2px); }
+    90% { transform: translate(-3px, 3px); }
+    100% { transform: translate(0, 0); }
+}
+
+.shake {
+    animation: shake 0.4s ease;
+}
+
+@keyframes bounce {
+    0% { transform: translate(0, 0); }
+    30% { transform: translate(0, -8px) rotate(-1deg);}
+    100% { transform: translate(0, 0) rotate(0); }
+}
+
+.bounce {
+    animation: bounce 0.4s ease;
+}
+
+
 #guess-history {
     display: flex;
     flex-direction: column;
     gap: 16px;
     width: 300px;
+    padding-bottom: 32px;
 }
 
 .guess-correct {
@@ -120,7 +172,7 @@ button {
     border: none;
     outline: none;
 
-    background:olive;
+    background-color: olive;
     color: white;
     padding: 8px 16px;
     font-family: inherit;
@@ -133,6 +185,26 @@ button:hover {
     transform: scale(1.05);
 }
 button:active {
+    transform: scale(0.95);
+}
+
+.give-up-button {
+    border: none;
+    outline: none;
+
+    background-color: crimson;
+    color: white;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+}
+.give-up-button:hover {
+    background: red;
+    transform: scale(1.05);
+}
+.give-up-button:active {
     transform: scale(0.95);
 }
 
@@ -224,7 +296,10 @@ input:focus {
     padding:24px;
     gap: 16px;
     max-width:400px;
-    box-shadow: 0 2px 32px rgba(0,0,0,0.5)
+    box-shadow: 0 2px 32px rgba(0,0,0,0.5);
+
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 #status {
@@ -241,6 +316,26 @@ input:focus {
     width: 32px;
     height: 32px;
 }
+
+@keyframes flash-incorrect {
+    0% { color: darkred; }
+    100% { color: #2B1B14; }
+}
+
+@keyframes flash-correct {
+    0% { color: olivedrab; }
+    100% { color: #2B1B14; }
+}
+
+.flash-incorrect {
+    animation: flash-incorrect 0.75s ease-out;
+}
+
+.flash-correct {
+    animation: flash-correct 1.5s ease-out;
+}
+
+
 
 #flag-grid {
     display: flex;
