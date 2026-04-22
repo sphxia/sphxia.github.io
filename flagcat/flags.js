@@ -14,7 +14,7 @@ const flags = [
     { name: "Bahamas", code: "bs", difficulty: 4 },
     { name: "Bahrain", code: "bh", difficulty: 3 }, // distinctive serrated edge
     { name: "Bangladesh", code: "bd", difficulty: 2 }, // simple, iconic off-center circle
-    { name: "Barbados", code: "bb", difficulty: 5 },
+    { name: "Barbados", code: "bb", difficulty: 3 },
     { name: "Belarus", code: "by", difficulty: 4 },
     { name: "Belgium", code: "be", difficulty: 2 },
     { name: "Belize", code: "bz", difficulty: 5 },
@@ -43,7 +43,7 @@ const flags = [
     { name: "Costa Rica", code: "cr", difficulty: 3 },
     { name: "Croatia", code: "hr", difficulty: 3 }, // distinctive checkerboard coat of arms
     { name: "Cuba", code: "cu", difficulty: 2 },
-    { name: "Cyprus", code: "cy", difficulty: 4 }, // unique island silhouette
+    { name: "Cyprus", code: "cy", difficulty: 3 }, // unique island silhouette
     { name: "Czech Republic", code: "cz", difficulty: 3 },
     { name: "Denmark", code: "dk", difficulty: 2 },
     { name: "Djibouti", code: "dj", difficulty: 5 },
@@ -201,7 +201,7 @@ const flags = [
 
     { name: "Puerto Rico", code: "pr", difficulty: 3 },
     { name: "Hong Kong", code: "hk", difficulty: 2 },
-    { name: "Faroe Islands", code: "xk", difficulty: 5 },
+    { name: "Faroe Islands", code: "fo", difficulty: 5 },
     { name: "Greenland", code: "gl", difficulty: 3 },
     { name: "Macau", code: "mo", difficulty: 5 },
     { name: "Bermuda", code: "bm", difficulty: 4 },

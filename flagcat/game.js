@@ -1,3 +1,20 @@
+const weights = {
+    1: 4,
+    2: 5,
+    3: 5,
+    4: 3,
+    5: 2
+}
+
+const weightedPool = [];
+for (let i = 0; i < flags.length; i++) {
+    const flag = flags[i];
+    const weight = weights[flag.difficulty];
+    for (let j = 0; j < weight; j++) {
+        weightedPool.push(flag);
+    }
+}
+
 function getDailyFlags() {
     const today = new Date();
     const seed = today.getFullYear() * 10000 
@@ -16,7 +33,7 @@ function getDailyFlags() {
         index3 = (index3 + 7) % flags.length;
     }
 
-    return [flags[index1], flags[index2], flags[index3]];
+    return [weightedPool[index1], weightedPool[index2], weightedPool[index3]];
 }
 
 const [flag1, flag2, flag3] = getDailyFlags();
