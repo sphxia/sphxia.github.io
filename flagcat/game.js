@@ -113,6 +113,19 @@ document.getElementById("guess-input").addEventListener("keydown", (e) => {
     }
 });
 
+function openHTP() {
+    document.getElementById('how-to-play-modal').classList.remove('close');
+}
+
+function closeHTP() {
+    document.getElementById('how-to-play-modal').classList.add('close');
+}
+
+document.getElementById('how-to-play-modal').addEventListener('click', function(e) {
+    // this works bcz the text and box and stuff arent actually "this" theyre stuff stacked on top i think
+    if (e.target === this) closeHTP();
+});
+
 document.getElementById("guess-input").addEventListener("keydown", function(e) {
     if (e.key === "Tab" && document.getElementById("guess-input").value != "") {
         e.preventDefault();

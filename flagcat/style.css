@@ -20,11 +20,18 @@ body {
 h1 {
     font-family: "Chewy", cursive;
     font-size: 3rem;
-    margin: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     color: #2B1B14;
 }
 
 h2 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: #2B1B14;
+}
+
+p {
     margin: 0;
     color: #2B1B14;
 }
@@ -159,4 +166,32 @@ input:focus {
     align-items: center;
     justify-content: space-between;
     animation: slam 0.2s ease-out;
+}
+
+.modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.2s;
+    pointer-events: all;
+}
+
+.modal.close {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    background:wheat;
+    padding:24px;
+    gap: 16px;
+    max-width:400px;
+    box-shadow: 0 2px 32px rgba(0,0,0,0.5)
 }
