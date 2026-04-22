@@ -6,7 +6,7 @@ body {
     max-width: 600px;
     margin: 0 auto;
     font-family: "Sour Gummy", sans-serif;
-    gap: 16px;
+    gap: 32px;
 }
 
 .top-buttons {
@@ -146,7 +146,9 @@ input:focus {
     overflow: hidden;
 }
 
-.guess-correct span {
+.guess-correct span, .guess-wrong span {
+    color: #2B1B14;
+    font-weight: bold;
     position: relative;
     z-index: 1;
 }

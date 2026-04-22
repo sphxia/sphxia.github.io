@@ -63,7 +63,6 @@ function submitGuess() {
     
     const span = document.createElement("span");
     span.textContent = guess.charAt(0).toUpperCase() + guess.slice(1);;
-    span.style.color = "#2B1B14"
     entry.appendChild(span);
 
     const img = document.createElement("img");
@@ -101,7 +100,11 @@ function submitGuess() {
 
 function endGame() {
     if (correctGuesses === 3) {
+        // HANDLE WIN //////////////////////////////////////////////////////////
         alert("Yoy did");
+        // TODO: MAKE ALL DAT IN CSS HAVE IT BE A CLASS ////////////////////////
+        document.getElementById("guess-input").disabled = true;
+        document.getElementById("guess-input").style.background = "darkgray";
     } else {
         alert("Yoy didnt");
     }
