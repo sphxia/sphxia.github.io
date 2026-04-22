@@ -174,9 +174,12 @@ input:focus {
 
 .guess-correct span, .guess-wrong span {
     color: #2B1B14;
-    font-weight: bold;
     position: relative;
     z-index: 1;
+}
+
+.guess-correct span {
+    font-weight: bold;
 }
 
 .guess-correct::after {
