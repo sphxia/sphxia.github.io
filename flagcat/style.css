@@ -9,6 +9,14 @@ body {
     gap: 16px;
 }
 
+.top-buttons {
+    display: flex;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    gap: 8px;
+}
+
 h1 {
     font-family: "Chewy", cursive;
     font-size: 3rem;

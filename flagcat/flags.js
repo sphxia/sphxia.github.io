@@ -13,6 +13,8 @@ const flags = [
     { name: "United States", code: "us", difficulty: 1 },
     { name: "United Kingdom", code: "gb", difficulty: 1 },
     { name: "Turkey", code: "tr", difficulty: 1 },
+    { name: "France", code: "fr", difficulty: 1 },
+    { name: "Australia", code: "au", difficulty: 1 },
 ]
 
 function getFlag(code) {
