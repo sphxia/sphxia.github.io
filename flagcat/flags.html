@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <title>Flagcat Flags</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div class="top-buttons">
+            <a href="./"><button>Back to Flagcat</button></a>
+        </div>
+        
+        <h1>Flags for the flag cat</h1>
+
+        <div style="display: flex; gap: 8px;" id="filters">
+            <button onclick="renderGrid('alpha')">A-Z</button>
+            <button onclick="renderGrid('desc')">★ Descending</button>
+            <button onclick="renderGrid('asc')">★ Ascending</button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <div id="flag-grid"></div>
+        </div>
+
+        <!-- connecting to and running the scripts after since script updates the elements -->
+        <script src="flags.js"></script>
+        <script src="game.js"></script> 
+    </body>
+
+    <script>
+        const grid = document.getElementById("flag-grid");
+
+        flags.forEach(flag => {
+            const row = document.createElement("div");
+            row.classList.add("flag-row");
+
+            const img = document.createElement("img");
+            img.src = getFlag(flag.code);
+            img.alt = flag.name;
+
+            const name = document.createElement("span");
+            name.textContent = flag.name;
+
+            const difficulty = document.createElement("span");
+            difficulty.textContent = "★".repeat(flag.difficulty) + "☆".repeat(5 - flag.difficulty);
+
+            const colors = ["", "lightblue", "chartreuse", "goldenrod", "red", "violet"];
+            difficulty.style.color = colors[flag.difficulty];
+            name.style.color = colors[flag.difficulty];
+
+            name.style.fontSize = "1.5rem";
+
+            row.appendChild(img);
+            row.appendChild(name);
+            row.appendChild(difficulty);
+            grid.appendChild(row);
+        });
+
+        function renderGrid(filter) {
+            const grid = document.getElementById("flag-grid");
+            grid.innerHTML = "";
+
+            let list = [...flags];
+
+            if (filter === "alpha") {
+                list.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (filter === "desc") {
+                list.sort((a, b) => b.difficulty - a.difficulty);
+            } else if (filter === "asc") {
+                list.sort((a, b) => a.difficulty - b.difficulty);
+            } else if (filter !== "all") {
+                list = list.filter(f => f.difficulty === filter);
+            }
+            list.forEach(flag => {
+                const row = document.createElement("div");
+                row.classList.add("flag-row");
+
+                const img = document.createElement("img");
+                img.src = getFlag(flag.code);
+                img.alt = flag.name;
+
+                const name = document.createElement("span");
+                name.textContent = flag.name;
+
+                const difficulty = document.createElement("span");
+                difficulty.textContent = "★".repeat(flag.difficulty) + "☆".repeat(5 - flag.difficulty);
+                const colors = ["", "lightblue", "chartreuse", "goldenrod", "red", "violet"];
+                difficulty.style.color = colors[flag.difficulty];
+                difficulty.style.fontSize = "1.5rem";
+
+                name.style.color = colors[flag.difficulty];
+                name.style.fontSize = "1.2rem";
+
+                row.appendChild(img);
+                row.appendChild(name);
+                row.appendChild(difficulty);
+                grid.appendChild(row);
+            });
+        }
+
+        renderGrid("all");
+    </script>
+
+</html>

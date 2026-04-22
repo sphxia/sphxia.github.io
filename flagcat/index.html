@@ -15,6 +15,7 @@
 
         <div class="top-buttons">
             <button onclick="openHTP()">How to Play</button>
+            <a href="flags.html"><button >Flags</button></a>
             <button>About</button>
         </div>
         <h1>Flagcat</h1>
@@ -33,20 +34,20 @@
 
         <div id="flag-box" class="flag-box">
             <!-- cats for game end animation -->
-            <img id="cat1" src="../flagcat.gif" /> 
-            <img id="cat2" src="../flagcat.gif" /> 
-            <img id="cat3" src="../flagcat.gif" /> 
+            <img id="cat1" src="../flagcat.gif" />
+            <img id="cat2" src="../flagcat.gif" />
+            <img id="cat3" src="../flagcat.gif" />
             <!-- actual flagcat -->
             <img id="flagcat" src="../flagcat.gif" />
             <!-- making empty images -->
-            <img id="flag1" src="" /> 
-            <img id="flag2" src="" /> 
-            <img id="flag3" src="" /> 
+            <img id="flag1" src="" />
+            <img id="flag2" src="" />
+            <img id="flag3" src="" />
         </div>
 
         <div id="cat-talk" style="position:relative; display: flex; align-items: flex-end; gap: 16px;">
             
-            <img id="speech-tail" src="tail.png" />
+            <img id="speech-tail" src="tail.png"; style="user-select: none; -webkit-user-drag: none; pointer-events: none;" />
             <h2 id="status">Welcome to my game</h2>
             
         </div>

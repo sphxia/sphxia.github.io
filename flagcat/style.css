@@ -241,3 +241,28 @@ input:focus {
     width: 32px;
     height: 32px;
 }
+
+#flag-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.flag-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px;
+    background: #2B1B14;
+    border-radius: 8px;
+    justify-content: space-between;
+}
+
+.flag-row img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid black;
+}
