@@ -1,3 +1,5 @@
+const diffColors = ["", "lightblue", "chartreuse", "goldenrod", "red", "violet"]
+
 const flags = [
     // THIS WAS AN ACT OF CLOD. WITH DIFFICULTY RATINGS WEIGHTING RECOGNIZEABILITY, NICHESSE, AND HOW EASY IT IS TO SEE THROUGH ANOTHER FLAG. GOOD CHARACTER DESIGN MAKES ICONIC SILHOUETTES
     { name: "Afghanistan", code: "af", difficulty: 3 },

@@ -32,10 +32,26 @@ body {
 .top-buttons {
     z-index: 5;
     display: flex;
+    flex-direction: row;
     position: fixed;
     top: 16px;
     right: 16px;
     gap: 8px;
+}
+
+#star-bar {
+    display: flex;
+    position: fixed;
+    font-size: 2rem;
+    z-index: 5;
+}
+
+#star-bar span + span {
+    margin-left: -20px; /* adjust to taste */
+}
+
+#star-bar span {
+    display: inline-block;
 }
 
 h1 {
@@ -356,7 +372,6 @@ input:focus {
 }
 
 .flag-row img {
-    width: 60px;
     height: 40px;
     object-fit: cover;
     border: 2px solid black;

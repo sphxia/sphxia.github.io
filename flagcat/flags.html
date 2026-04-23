@@ -13,7 +13,7 @@
 
     <body>
 
-        <div class="top-buttons">
+        <div class="top-right">
             <a href="./"><button>Back to Flagcat</button></a>
         </div>
         
@@ -91,7 +91,7 @@
 
                 const difficulty = document.createElement("span");
                 difficulty.textContent = "★".repeat(flag.difficulty) + "☆".repeat(5 - flag.difficulty);
-                const colors = ["", "lightblue", "chartreuse", "goldenrod", "red", "violet"];
+                const colors = diffColors;
                 difficulty.style.color = colors[flag.difficulty];
                 difficulty.style.fontSize = "1.5rem";
 

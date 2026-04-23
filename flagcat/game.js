@@ -18,23 +18,31 @@ for (let i = 0; i < flags.length; i++) {
 
 function getDailyFlags() {
     const today = new Date();
+    //today.setDate(today.getDate() - 1); // TROUBLE SHOOTER
     const seed = today.getFullYear() * 10000 
         + (today.getMonth() + 1) * 100 
         + today.getDate();
 
-    const index1 = Math.floor(seed / 10000) % flags.length;
-
-    let index2 = Math.floor(seed / 100) % flags.length;
-    while (index2 === index1) {
-        index2 = (index2 + 7) % flags.length;
+    // SHUFFLING WEIGHTED POOL BY SEED
+    const pool = [...weightedPool];
+    let s = seed;
+    for (let i = pool.length - 1; i > 0; i--) {
+        s = (s * 31 + 17) % 1000000007; // Fuck it Up
+        const j = s % (i + 1); // get an earlier random position
+        // Swap dat
+        [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    let index3 = seed % flags.length;
-        while (index3 === index1 || index3 === index2) {
-        index3 = (index3 + 7) % flags.length;
+    // PICKING FIRST 3 FLAGS AND MAKING SURE NONE MATCH
+    const dailyFlags = [];
+    for (let i = 0; i < pool.length; i++) {
+        if (!dailyFlags.includes(pool[i])) {
+            dailyFlags.push(pool[i]);
+        }
+        if (dailyFlags.length === 3) break;
     }
 
-    return [weightedPool[index1], weightedPool[index2], weightedPool[index3]];
+    return dailyFlags;
 }
 
 const [flag1, flag2, flag3] = getDailyFlags();
@@ -48,6 +56,23 @@ const correctFlagNames = [flag1.name.toLowerCase(), flag2.name.toLowerCase(), fl
 const guessHistory = [];
 
 let correctGuesses = 0;
+
+
+const topButtons = document.getElementById("top-buttons");
+const starBar = document.getElementById("star-bar");
+
+const sync = () => {
+    const rect = topButtons.getBoundingClientRect();
+    starBar.style.position = "fixed";
+    starBar.style.left = rect.left + "px";
+    starBar.style.top = rect.bottom + 8 + "px"; // 8px gap
+};
+
+sync();
+// new ResizeObserver(sync).observe(topButtons);
+window.addEventListener("resize", sync);
+
+
 
 function submitGuess() {
     const guess = document.getElementById("guess-input").value.toLowerCase();
@@ -94,9 +119,57 @@ function submitGuess() {
 
     const isCorrect = correctFlagNames.includes(guess);
 
-    if (correctFlagNames.includes(guess)) {
+    if (isCorrect) {
         entry.classList.add("guess-correct");
         correctGuesses++;
+
+        // CORRECT GUESS SPLISH /////////////////////////////////
+
+        const barRect = starBar.getBoundingClientRect();
+
+        for (let i = 0; i < flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).difficulty; i++) {
+            setTimeout(() => {
+                const star = document.createElement("span");
+                star.textContent = "★";
+                star.style.transform = "rotate(-216deg)";
+                star.style.position = "fixed";
+                star.style.left = "50vw";
+                star.style.top = "50vh";
+                star.style.zIndex = 102 + starBar.children.length;
+                star.style.fontSize = "6rem";
+                star.style.webkitTextStroke = "1px black";
+                star.style.color = diffColors[flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).difficulty];
+
+                document.body.appendChild(star);
+
+                const target = star.getBoundingClientRect();
+                
+                setTimeout(() => {
+                    star.style.transition = star.style.transition = "top 0.6s cubic-bezier(0.7, 0, 1, 1), left 0.6s cubic-bezier(0, 0, 0.3, 1), font-size 0.75s ease-out, transform 0.6s cubic-bezier(0.3, 0, 0.5, 1)";
+
+                    star.style.left = barRect.left + "px";
+                    star.style.top = barRect.top + "px";
+
+                    star.style.fontSize = "3rem";
+                    star.style.transform = "rotate(10deg)";
+                }, 50);
+
+                setTimeout(() => {
+                    star.remove();
+                    const settled = document.createElement("span");
+                    settled.style.color = diffColors[flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).difficulty];
+                    settled.textContent = "★";
+                    settled.style.fontSize = "3rem";
+                    settled.style.webkitTextStroke = "1px black";
+                    settled.style.transform = "rotate(10deg)";
+                    settled.style.position = "relative";
+                    settled.style.zIndex = 1 + starBar.children.length;
+                    starBar.prepend(settled);
+                }, 750);
+                
+            }, i * 300);
+        }
+        // CORRECT GUESS SPLISH /////////////////////////////////
     } else {
         entry.classList.add("guess-wrong");
     }
