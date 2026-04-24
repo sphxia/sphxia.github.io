@@ -302,7 +302,7 @@ function endGame() {
 }
 
 function copyResults() {
-    let nth = "10000st";
+    let nth = dayNum + "st";
 
     let squaresString = "";
     for (let i = 0; i < guessHistory.length; i++) {
