@@ -447,7 +447,7 @@ function logGame(won) {
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    //return;
+    return;
 
     const save = loadSave();
 
