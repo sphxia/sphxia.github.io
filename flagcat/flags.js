@@ -213,7 +213,7 @@ const flags = [
     { name: "Scotland", code: "gb-sct", difficulty: 2 },
     { name: "Wales", code: "gb-wls", difficulty: 1 },
     { name: "England", code: "gb-eng", difficulty: 2 },
-    { name: "Isle of Man", code: "gb-iom", difficulty: 4 },
+    { name: "Isle of Man", code: "im", difficulty: 4 },
 ]
 
 function getFlag(code) {
