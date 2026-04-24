@@ -221,7 +221,27 @@ function renderGuess(guess, isCorrect) {
 function endGame() {
     if (correctGuesses === 3) {
         // HANDLE WIN //////////////////////////////////////////////////////////
-        document.getElementById("status").textContent = "Holy moly you did it. You guessed my three flags!"
+        const status = document.getElementById("status");
+        status.textContent = "";
+
+        const first = document.createTextNode("Holy moly you did it. You guessed my three flags! Click ");
+
+        const button = document.createElement("button");
+        button.textContent = "Here";
+        button.style.lineHeight = "12px"
+        button.style.paddingLeft = "8px";
+        button.style.paddingRight = "8px";
+        button.style.paddingTop = "9px";
+        button.style.paddingBottom = "10px";
+        button.style.fontSize = "1.5rem";
+        button.onclick = copyResults;
+
+        const last = document.createTextNode(" to copy your results!");
+
+        status.appendChild(first);
+        status.appendChild(button);
+        status.appendChild(last);
+
         logGame(true);
     } else {
         document.getElementById("status").textContent = "Hey you lost but that's okay"
@@ -244,6 +264,17 @@ function endGame() {
     // ANIMATION /////////////////////////
     document.getElementById("flag-box").classList.add("game-end");
 
+}
+
+function copyResults() {
+    let nth = "10000st";
+    let resultsString = "";
+    if (correctGuesses === 3) {
+        resultsString = "I guessed his daily flags: 🏳️‍🌈🏳️‍🌈🏳️‍🌈\nTake his " + nth + " challenge here: https://sphxia.github.io/flagcat";
+    } else {
+        resultsString = "I guessed his daily flags: " + "🟩".repeat(correctGuesses) + "🟥".repeat(3 - correctGuesses) + "\nTake his" + nth + "challenge here: https://sphxia.github.io/flagcat";
+    }
+    navigator.clipboard.writeText(resultsString);
 }
 
 document.getElementById("guess-input").addEventListener("keydown", (e) => {
