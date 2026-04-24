@@ -5,6 +5,7 @@ body {
     align-items: center;
     max-width: 600px;
     margin: 0 auto;
+    margin-top: 16px;
     font-family: "Sour Gummy", sans-serif;
     gap: 32px;
 }
@@ -64,8 +65,8 @@ body {
 h1 {
     font-family: "Chewy", cursive;
     font-size: 3rem;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     color: #2B1B14;
 }
 

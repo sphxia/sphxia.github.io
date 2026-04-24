@@ -16,6 +16,42 @@
         <div class="top-buttons">
             <a href="./"><button>Back to Flagcat</button></a>
         </div>
+
+        <div style="display: flex; flex-direction: column; position: fixed; top: 16px; left: 16px; gap: 16px; width: 340px;">
+            <div id="feedback-box" style="text-align: left; background-color:goldenrod; padding: 24px; flex-wrap: wrap; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content:space-between;">
+                    <h1>Feedback!</h1>
+                    <style>
+                        .this-button-below-me {
+                            color: #2B1B14;
+                            font-family: "Chewy", cursive;
+                            font-size: 3rem;
+                        }
+                        .this-button-below-me:hover { color: wheat; }
+                    </style>
+                    <button onclick="document.getElementById('feedback-box').style.display='none'" class="this-button-below-me" style="background-color: transparent;font-size: 2rem;">X</button>
+                </div>
+                <p>As of right now, the difficulty ratings for the flags are very rough, and were mostly picked arbitrarily with the input of only a couple people. And I personally am not the biggest flag nerd so I am very uncertain for a lot of my choices.</p>
+                <p>If you have any opinions on the way things are balanced as of right now, or think something might warrant a change, please consider sharing!</p>
+                <p>You can contact me @lamama on discord, but I should have a google forms embed here soon for ease of access.</p>
+            </div>
+
+            <div id="patchnotes-box" style="text-align: left; background-color:goldenrod; padding: 24px; flex-wrap: wrap; max-width: 300px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content:space-between;">
+                    <h1>Patchnotes!</h1>
+                    <style>
+                        .this-button-below-me {
+                            color: #2B1B14;
+                            font-family: "Chewy", cursive;
+                            font-size: 3rem;
+                        }
+                        .this-button-below-me:hover { color: wheat; }
+                    </style>
+                    <button onclick="document.getElementById('patchnotes-box').style.display='none'" class="this-button-below-me" style="background-color: transparent;font-size: 2rem;">X</button>
+                </div>
+                <p>I have noting</p>
+            </div>
+        </div>
         
         <h1>Flags for the flag cat</h1>
 

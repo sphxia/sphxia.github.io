@@ -84,7 +84,6 @@ const sync = () => {
 };
 
 sync();
-// new ResizeObserver(sync).observe(topButtons);
 window.addEventListener("resize", sync);
 
 
