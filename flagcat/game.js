@@ -1,3 +1,16 @@
+const startDate = new Date(2026, 3, 24);
+const thisDay = new Date();
+thisDay.setHours(0,0,0,0);
+
+const dayNum = Math.floor((thisDay - startDate) / 86400000) + 1;
+
+const dayChars = "\u00A0#" + dayNum;
+dayChars.split("").forEach((char, i) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    document.getElementById("title").appendChild(span);
+});
+
 const weights = {
     1: 4,
     2: 5,
@@ -54,6 +67,7 @@ document.getElementById("flag3").src = `https://flagcdn.com/w320/${flag3.code}.p
 const correctFlagNames = [flag1.name.toLowerCase(), flag2.name.toLowerCase(), flag3.name.toLowerCase()];
 
 const guessHistory = [];
+let gameEnded = false;
 
 let correctGuesses = 0;
 let starCount = 0;
@@ -244,7 +258,26 @@ function endGame() {
 
         logGame(true);
     } else {
-        document.getElementById("status").textContent = "Hey you lost but that's okay"
+        const status = document.getElementById("status");
+        status.textContent = "";
+
+        const first = document.createTextNode("Hey you lost but thats okay. Click ");
+
+        const button = document.createElement("button");
+        button.textContent = "Here";
+        button.style.lineHeight = "12px"
+        button.style.paddingLeft = "8px";
+        button.style.paddingRight = "8px";
+        button.style.paddingTop = "9px";
+        button.style.paddingBottom = "10px";
+        button.style.fontSize = "1.5rem";
+        button.onclick = copyResults;
+
+        const last = document.createTextNode(" to copy your results!");
+
+        status.appendChild(first);
+        status.appendChild(button);
+        status.appendChild(last);
         logGame(false);
     }
 
@@ -264,16 +297,31 @@ function endGame() {
     // ANIMATION /////////////////////////
     document.getElementById("flag-box").classList.add("game-end");
 
+    gameEnded = true;
+    writeSave();
 }
 
 function copyResults() {
     let nth = "10000st";
-    let resultsString = "";
-    if (correctGuesses === 3) {
-        resultsString = "I guessed his daily flags: 🏳️‍🌈🏳️‍🌈🏳️‍🌈\nTake his " + nth + " challenge here: https://sphxia.github.io/flagcat";
-    } else {
-        resultsString = "I guessed his daily flags: " + "🟩".repeat(correctGuesses) + "🟥".repeat(3 - correctGuesses) + "\nTake his" + nth + "challenge here: https://sphxia.github.io/flagcat";
+
+    let squaresString = "";
+    for (let i = 0; i < guessHistory.length; i++) {
+        if (correctFlagNames.includes(guessHistory[i])) {
+            squaresString += " 🟩";
+        } else {
+            squaresString += " 🟥";
+        }
     }
+
+    let messageString = "Flagcat #" + dayNum + "\n";
+    if (correctGuesses === 3) {
+        messageString += "I guessed his three daily flags:"
+    } else {
+        messageString += "His daily flags got the better of me:"
+    }
+
+    let resultsString = "";
+    resultsString = messageString + squaresString + "\nTake his " + nth + " challenge here! https://sphxia.github.io/flagcat";
     navigator.clipboard.writeText(resultsString);
 }
 
@@ -349,7 +397,7 @@ const defaultStats = {
 function writeSave() {
     const saveData = {
         guessHistory,
-        finished: correctGuesses === 3,
+        finished: gameEnded,
         correctFlagNames,
         stars: starCount
     };
