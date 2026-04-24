@@ -125,7 +125,6 @@ function submitGuess() {
     setTimeout(() => flagBox.classList.add("bounce"), 1);
 
 
-
     // HANDLING GUESS
 
     guessHistory.push(guess);
@@ -204,14 +203,16 @@ function renderGuess(guess, isCorrect) {
     } else {
         entry.classList.add("guess-wrong");
     }
+
+    const flag = flags.find(f => f.name.toLowerCase() === guess.toLowerCase())
     
     const span = document.createElement("span");
-    span.textContent = guess.charAt(0).toUpperCase() + guess.slice(1);;
+    span.textContent = flag.name;
     entry.appendChild(span);
     entry.style.flex = "1";
 
     const img = document.createElement("img");
-    img.src = getFlag(flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).code);
+    img.src = getFlag(flag.code);
     
     img.style.height = "100%";
     img.style.width = "auto";
