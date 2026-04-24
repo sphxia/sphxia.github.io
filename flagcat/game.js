@@ -56,6 +56,7 @@ const correctFlagNames = [flag1.name.toLowerCase(), flag2.name.toLowerCase(), fl
 const guessHistory = [];
 
 let correctGuesses = 0;
+let starCount = 0;
 
 
 const topButtons = document.getElementById("top-buttons");
@@ -115,13 +116,11 @@ function submitGuess() {
 
     guessHistory.push(guess);
 
-    const entry = document.createElement("div");
-
     const isCorrect = correctFlagNames.includes(guess);
 
     if (isCorrect) {
-        entry.classList.add("guess-correct");
         correctGuesses++;
+        starCount += flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).difficulty;
 
         // CORRECT GUESS SPLISH /////////////////////////////////
 
@@ -169,7 +168,25 @@ function submitGuess() {
                 
             }, i * 300);
         }
-        // CORRECT GUESS SPLISH /////////////////////////////////
+    }
+    
+    document.getElementById("guess-input").value = "";
+
+    renderGuess(guess, isCorrect);
+
+    writeSave();
+
+    if (correctGuesses === 3) {
+        endGame();
+    }
+}
+
+function renderGuess(guess, isCorrect) {
+
+    const entry = document.createElement("div");
+
+    if (isCorrect) {
+        entry.classList.add("guess-correct");
     } else {
         entry.classList.add("guess-wrong");
     }
@@ -177,25 +194,21 @@ function submitGuess() {
     const span = document.createElement("span");
     span.textContent = guess.charAt(0).toUpperCase() + guess.slice(1);;
     entry.appendChild(span);
+    entry.style.flex = "1";
 
     const img = document.createElement("img");
     img.src = getFlag(flags.find(f => f.name.toLowerCase() === guess.toLowerCase()).code);
     
     img.style.height = "100%";
     img.style.width = "auto";
-
     img.style.objectFit = "cover";
     img.style.position = "relative";
     img.style.zIndex = "1";
     img.style.border = "2px solid #2B1B14";
 
     const guessBox = document.createElement("div");
-
     guessBox.style.height = "32px";
     guessBox.style.alignItems = "stretch";
-
-    entry.style.flex = "1";
-
     guessBox.style.display = "flex";
     guessBox.style.gap = "8px";
 
@@ -203,20 +216,16 @@ function submitGuess() {
     guessBox.appendChild(img);
 
     document.getElementById("guess-history").prepend(guessBox);
-    
-    document.getElementById("guess-input").value = "";
-
-    if (correctGuesses === 3) {
-        endGame();
-    }
 }
 
 function endGame() {
     if (correctGuesses === 3) {
         // HANDLE WIN //////////////////////////////////////////////////////////
         document.getElementById("status").textContent = "Holy moly you did it. You guessed my three flags!"
+        logGame(true);
     } else {
         document.getElementById("status").textContent = "Hey you lost but that's okay"
+        logGame(false);
     }
 
     // TODO: MAKE ALL DAT IN CSS HAVE IT BE A CLASS ////////////////////////
@@ -285,4 +294,107 @@ document.getElementById("guess-button").addEventListener("click", () => {
 
 document.getElementById("give-up-button").addEventListener("click", () => {
     endGame();
+});
+
+// SAVING LOADING STUFF /////////////////////////////////////////////
+
+const today = new Date();
+const dateKey = `flagcat-${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+
+const defaultSave = {
+    guessHistory: [],
+    starsEarned: 0,
+    finished: false
+};
+
+const defaultStats = {
+    totalPlayed: 0,
+    totalWins: 0,
+    history: [],
+    stars: 0
+};
+
+// DAILY SAVE ///////////////////////////////////////////////////
+function writeSave() {
+    const saveData = {
+        guessHistory,
+        finished: correctGuesses === 3,
+        correctFlagNames,
+        stars: starCount
+    };
+    localStorage.setItem(dateKey, JSON.stringify(saveData));
+}
+
+function loadSave() {
+    const rawData = localStorage.getItem(dateKey);
+    if (rawData) {
+        return JSON.parse(rawData);
+    } else {
+        return { ...defaultSave }
+    }
+}
+
+// ALLTIME STATS /////////////////////////////////////////////////
+function writeStats(stats) {
+    localStorage.setItem("stats", JSON.stringify(stats));
+}
+
+function loadStats() {
+    const rawStats = localStorage.getItem("stats");
+    if (rawStats) {
+        return JSON.parse(rawStats);
+    } else {
+        return { ...defaultStats }
+    }
+}
+
+// UPDATING STATS ////////////////////////////////////////////////
+function logGame(won) {
+    const stats = loadStats();
+
+    stats.totalPlayed++;
+    if (won) {
+        stats.totalWins++;
+    }
+    stats.history.push({
+        date: dateKey,
+        won,
+        guessHistory,
+        stars: starCount
+    });
+
+    writeStats(stats);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    //return;
+
+    const save = loadSave();
+
+    save.guessHistory.forEach(guess => {
+        const savedCorrectNames = save.correctFlagNames;
+        const isCorrect = savedCorrectNames.includes(guess);
+        if (isCorrect) correctGuesses++;
+        guessHistory.push(guess);
+        renderGuess(guess, isCorrect);
+    });
+
+    starCount = save.stars;
+
+    for (let i = 0; i < starCount; i ++) {
+        const star = document.createElement("span");
+        star.style.color = "gray";
+        star.textContent = "★";
+        star.style.fontSize = "3rem";
+        star.style.webkitTextStroke = "1px black";
+        star.style.transform = "rotate(10deg)";
+        star.style.position = "relative";
+        star.style.zIndex = 1 + starBar.children.length;
+        starBar.prepend(star);
+    }
+
+    if (save.finished) {
+        endGame();
+    }
 });
